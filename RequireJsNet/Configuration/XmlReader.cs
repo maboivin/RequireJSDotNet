@@ -42,6 +42,7 @@ namespace RequireJsNet.Configuration
                 collection.Paths = GetPaths(doc.Root);
                 collection.Shim = GetShim(doc.Root);
                 collection.Map = GetMap(doc.Root);
+                collection.StaticDependencies = GetStaticDependencies(doc.Root);
 
                 if (options.ProcessBundles)
                 {
@@ -116,6 +117,19 @@ namespace RequireJsNet.Configuration
             }
 
             return map;
+        }
+
+        private StaticDependencies GetStaticDependencies(XElement root)
+        {
+            var result = new StaticDependencies();
+            result.Dependencies = new List<RequireDependency>();
+            var staticDependenciesElement = root.Element("staticDependencies");
+            if (staticDependenciesElement != null)
+            {
+                result.Dependencies = DependenciesReader(staticDependenciesElement);
+            }
+
+            return result;
         }
 
         private AutoBundles GetAutoBundles(XElement root)

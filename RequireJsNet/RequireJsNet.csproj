@@ -104,6 +104,7 @@
     <Compile Include="Models\RequireMapElement.cs" />
     <Compile Include="Models\RequireReplacement.cs" />
     <Compile Include="Models\RoutingInfo.cs" />
+    <Compile Include="Models\StaticDependencies.cs" />
     <Compile Include="Validation\ConfigValidator.cs" />
     <Compile Include="Configuration\IConfigReader.cs" />
     <Compile Include="Configuration\ReaderFactory.cs" />

@@ -17,5 +17,7 @@
         public AutoBundles AutoBundles { get; set; }
 
         public List<CollectionOverride> Overrides { get; set; }
+
+        public StaticDependencies StaticDependencies { get; set; }
     }
 }

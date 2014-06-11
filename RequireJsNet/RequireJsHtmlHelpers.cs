@@ -204,11 +204,14 @@ namespace RequireJS
             var requireRootBuilder = new JavaScriptBuilder();
             requireRootBuilder.AddAttributesToStatement("src", requireUrl);
 
+            var requireMethodParams = new List<string>(resultingConfig.StaticDependencies.Dependencies.Select(x => x.Dependency));
+            requireMethodParams.Add(entryPointPath.ToString());
+
             var requireEntryPointBuilder = new JavaScriptBuilder();
             requireEntryPointBuilder.AddStatement(
                 JavaScriptHelpers.MethodCall(
-                "require", 
-                (object)new[] { entryPointPath.ToString() }));
+                "require",
+                requireMethodParams));
 
             return new MvcHtmlString(
                 configBuilder.Render() 

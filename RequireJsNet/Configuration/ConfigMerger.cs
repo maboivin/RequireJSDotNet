@@ -23,6 +23,8 @@ namespace RequireJsNet.Configuration
             finalCollection.Shim.ShimEntries = new List<ShimEntry>();
             finalCollection.Map = new RequireMap();
             finalCollection.Map.MapElements = new List<RequireMapElement>();
+            finalCollection.StaticDependencies = new StaticDependencies();
+            finalCollection.StaticDependencies.Dependencies = new List<RequireDependency>();
             finalCollection.Bundles = new RequireBundles();
             finalCollection.Bundles.BundleEntries = new List<RequireBundle>();
             finalCollection.AutoBundles = new AutoBundles();
@@ -37,6 +39,7 @@ namespace RequireJsNet.Configuration
                 MergePaths(coll);
                 MergeShims(coll);
                 MergeMaps(coll);
+                MergeStaticDependencies(coll);
                 this.MergeAutoBundles(coll);
 
                 if (options.LoadOverrides)
@@ -119,6 +122,12 @@ namespace RequireJsNet.Configuration
                     finalMaps.Add(map);
                 }
             }
+        }
+
+        private void MergeStaticDependencies(ConfigurationCollection collection)
+        {
+            var finalStaticDependencies = finalCollection.StaticDependencies.Dependencies;
+            finalStaticDependencies.AddRange(collection.StaticDependencies.Dependencies.Where(d => !finalStaticDependencies.Select(x => x.Dependency).Contains(d.Dependency)));
         }
 
         private void MergeAutoBundles(ConfigurationCollection collection)
